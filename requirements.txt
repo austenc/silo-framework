@@ -1,0 +1,2 @@
+inflect>=2.1.0
+Werkzeug==0.14.1

@@ -1,8 +1,36 @@
 import os
 import unittest
+from Hako.Console.Command import Command
 from Hako.Console.Kernel import Kernel
 from Hako.Console.Parser import Parser
+from argparse import Namespace
 
+
+class TestCommand(unittest.TestCase):
+    def setUp(self):
+        self.cmd = Command()
+        self.cmd.signature = 'example:cmd { arg1 } {--opt1}'
+        name, params = Parser.parse(self.cmd.signature)
+        self.cmd._params = params
+        self.cmd._param_values = Namespace(arg1='test arg1', opt1='test opt1')
+
+    def test_can_get_all_arguments(self):
+        self.assertTrue('arg1' in self.cmd.arguments())
+        self.assertTrue('opt1' not in self.cmd.arguments())
+        self.assertEqual(self.cmd.arguments()['arg1'], 'test arg1')
+
+    def test_can_get_single_argument(self):
+        self.assertEqual(self.cmd.argument('arg1'), 'test arg1')
+        self.assertEqual(self.cmd.argument('other'), None)
+
+    def test_can_get_all_options(self):
+        self.assertTrue('opt1' in self.cmd.options())
+        self.assertTrue('arg1' not in self.cmd.options())
+        self.assertEqual(self.cmd.options()['opt1'], 'test opt1')
+
+    def test_can_get_single_option(self):
+        self.assertEqual(self.cmd.option('opt1'), 'test opt1')
+        self.assertEqual(self.cmd.option('other'), None)
 
 class TestConsoleKernel(unittest.TestCase):
     def test_loads_commands_from_framework(self):

@@ -3,7 +3,7 @@ class Param:
         # Set defaults
         self.name = name.strip()
         self.default = None
-        self.description = None
+        self.description = ''
         self.is_optional = False
         self.shortcut = None
 
@@ -14,3 +14,15 @@ class Param:
         # If something has a default, it is optional
         if (self.default is not None):
             self.is_optional = True
+    
+    def to_args(self, parser):
+        parser.add_argument(
+            self.arg_name(), 
+            default = self.default,
+            help=self.description
+        )
+
+    def arg_name(self):
+        if (self.is_optional and self.name[:2] is not '--'):
+            return '--' + self.name
+        return self.name

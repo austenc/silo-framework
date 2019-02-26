@@ -28,7 +28,7 @@ class Kernel:
                     param.to_args(parser)
             
                 cmd_args, unknown_cmd_args = parser.parse_known_args()
-                cmd['instance']._param_values = cmd_args
+                cmd['instance']._values = cmd_args
             cmd['instance'].handle()
         except KeyError:
             print('Command "%s" not found, is it registered?' % (args.command_name))

@@ -129,6 +129,8 @@ class Command:
         return string
     
     def color(self, text, color='info'):
+        if color is 'normal':
+            return self.text_color(text, 'rs')
         if color is 'info':
             return self.text_color(text, 'green')
         if color is 'warn':
@@ -154,3 +156,30 @@ class Command:
 
     def error(self, text):
         print(self.color(text, 'error'))
+
+    def table(self, headings, rows):
+        widths = self.max_content_length(headings, rows)
+        line = '+' + ('-' * (sum(widths) - 1 + len(headings) * 3)) + '+\n'
+        output = line
+        output += self._table_row(headings, widths, 'info')
+        output += line
+        for row in rows:
+            row = [row] if type(row) not in (list, tuple) else row
+            output += self._table_row(row, widths)
+        output += line
+        print(output)
+        
+    def _table_row(self, cols, widths, color='normal'):
+        row = '| '
+        for col, width in zip(cols, widths):
+            row += self.color(col, color) + ' ' * (width - len(col)) + ' | '                
+        return row + '\n'
+
+    def max_content_length(self, headings, rows, padding=2):
+        max_length = [len(x) + padding for x in headings]
+        for row in rows:
+            row = [row] if type(row) not in (list, tuple) else row
+            for index, col in enumerate(row):
+                if max_length[index] < len(str(col)):
+                    max_length[index] = len(str(col)) + padding
+        return max_length

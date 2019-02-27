@@ -9,8 +9,15 @@ class RouteListCommand(Command):
 
     def handle(self):
         print('Running route:list command with these args and options:')
+        print('Args: ', end='')
         print(self.arguments())
+        print('Options: ', end='')
         print(self.options())
+        print()
+        self.table(['example', 'header', '123', 'testerlongstuff'], [
+            ['data1', 'data2', 'data3', '123'],
+            ['abc', 'def', 'xyz', '123']
+        ])
         self.info('info 123')
         self.warn('warning 123')
         self.question('info 123??? test?')

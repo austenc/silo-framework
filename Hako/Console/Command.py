@@ -97,6 +97,27 @@ class Command:
         else:
            self.confirm(question)
 
+    def choice(self, question, choices, default=None):
+        selected = default if default in choices else 0
+        choice = input(self.list_choices(question, choices, selected))
+        if choice is '':
+            choice = selected
+        
+        if choice in choices:
+            return choice
+        elif int(choice) < len(choices):
+            return choices[int(choice)]
+
+        print('Invalid choice, please try again.\n')
+        return self.choice(question, choices, default)
+
+    def list_choices(self, question, choices, selected):
+        output = '{q} [{selected}]: \n'.format(q=question, selected=selected)
+        for key, choice in enumerate(choices):
+            output += ' [{key}] {choice} \n'.format(key=key, choice=choice)
+        output += '> '
+        return output
+
     def end_with_newline(self, string):
         if not string.endswith("\n"):
             string += "\n"

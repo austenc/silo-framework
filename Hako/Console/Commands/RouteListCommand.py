@@ -19,3 +19,5 @@ class RouteListCommand(Command):
             print('You continue on your journey.')
         else:
             print('Your journey is complete.')
+        selection = self.choice('Example question?', ['one', 'two', 'three'], 'two')
+        print(selection)

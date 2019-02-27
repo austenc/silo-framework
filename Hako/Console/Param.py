@@ -21,16 +21,23 @@ class Param:
                 self.arg_name(self.shortcut),
                 self.arg_name(self.name),
                 default=self.default,
-                help=self.description
+                help=self.description,
+                action=self.action()
             )
         else:
             parser.add_argument(
                 self.arg_name(self.name), 
                 default=self.default,
-                help=self.description
+                help=self.description,
+                action=self.action()
             )
 
     def arg_name(self, name):
         if (self.is_optional and name[:2] is not '--'):
             return '--' + name
         return name
+
+    def action(self):
+        if self.is_optional and self.default is None:            
+            return 'store_true'
+        return 'store'

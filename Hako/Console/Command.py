@@ -1,3 +1,5 @@
+import getpass
+
 class Command:
     """Handles arguments and options of CLI commands.
 
@@ -32,7 +34,7 @@ class Command:
 
     def argument(self, key):
         """Fetch a single argument from user supplied values.
-        
+
         Args:
             key: The argument name to retrieve the value of
 
@@ -40,7 +42,7 @@ class Command:
             The value for a key, falling back to its default or None
         """
         return self.arguments().get(key)
-    
+
     def options(self):
         """Fetch user supplied values for this command's options.
 
@@ -68,11 +70,22 @@ class Command:
 
     def option(self, key):
         """Fetch a single option from user supplied values.
-
         Args:
             key: The option name to retrieve the value of
-
         Returns:
             The value for a key, falling back to its default or None
         """
         return self.options().get(key)
+
+    def ask(self, question):
+        return input(self.end_with_newline(question))
+    
+    def secret(self, question):
+        return getpass.getpass(self.end_with_newline(question))
+    
+    
+
+    def end_with_newline(self, string):
+        if not string.endswith("\n"):
+            string += "\n"
+        return string

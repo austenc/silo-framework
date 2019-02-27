@@ -16,13 +16,21 @@ class Param:
             self.is_optional = True
     
     def to_args(self, parser):
-        parser.add_argument(
-            self.arg_name(), 
-            default = self.default,
-            help=self.description
-        )
+        if self.shortcut is not None:
+            parser.add_argument(
+                self.arg_name(self.shortcut),
+                self.arg_name(self.name),
+                default=self.default,
+                help=self.description
+            )
+        else:
+            parser.add_argument(
+                self.arg_name(self.name), 
+                default=self.default,
+                help=self.description
+            )
 
-    def arg_name(self):
-        if (self.is_optional and self.name[:2] is not '--'):
-            return '--' + self.name
-        return self.name
+    def arg_name(self, name):
+        if (self.is_optional and name[:2] is not '--'):
+            return '--' + name
+        return name

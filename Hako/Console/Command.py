@@ -55,7 +55,14 @@ class Command:
         options = {}
         for name, param in self._params.items():
             if param.is_optional:
-                options[name] = getattr(self._values, name, param.default)
+                default = getattr(self._values, name, param.default)
+                shortcut_value = getattr(self._values, param.shortcut)
+                if shortcut_value:
+                    options[name] = shortcut_value
+                    options[param.shortcut] = shortcut_value
+                else:
+                    options[name] = default
+
         return options
 
     def option(self, key):

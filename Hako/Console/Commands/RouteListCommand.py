@@ -15,3 +15,7 @@ class RouteListCommand(Command):
         print('Hello '+name)
         password = self.secret('What is the password?')
         print('You entered "'+password+'"')
+        if (self.confirm('Do you want to continue?', True)):
+            print('You continue on your journey.')
+        else:
+            print('Your journey is complete.')

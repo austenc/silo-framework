@@ -81,9 +81,21 @@ class Command:
         return input(self.end_with_newline(question))
     
     def secret(self, question):
-        return getpass.getpass(self.end_with_newline(question))
+        return getpass.getpass(question)
     
-    
+    def confirm(self, question, default=False):
+        yes = ['yes', 'y', 'ye']
+        no = ['no', 'n']
+        selected = 'yes' if default is True else 'no'
+        choice = input(question + ' (yes/no)' + ' [' + selected + '] ').lower()
+        if choice is '':
+            choice = selected
+        if choice in yes:
+           return True
+        elif choice in no:
+           return False
+        else:
+           self.confirm(question)
 
     def end_with_newline(self, string):
         if not string.endswith("\n"):

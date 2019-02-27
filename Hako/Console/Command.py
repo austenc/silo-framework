@@ -56,10 +56,11 @@ class Command:
         for name, param in self._params.items():
             if param.is_optional:
                 default = getattr(self._values, name, param.default)
-                shortcut_value = getattr(self._values, param.shortcut)
-                if shortcut_value:
-                    options[name] = shortcut_value
-                    options[param.shortcut] = shortcut_value
+                if param.shortcut:
+                    shortcut_value = getattr(self._values, param.shortcut)
+                    if shortcut_value:
+                        options[name] = shortcut_value
+                        options[param.shortcut] = shortcut_value
                 else:
                     options[name] = default
 

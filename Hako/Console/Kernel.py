@@ -12,7 +12,7 @@ class Kernel:
         self.commands = []
     
     # Load all commands and attempt to match the user input to them
-    def handle(self):
+    def run(self):
         self.commands = self.load_commands()
         parent = argparse.ArgumentParser(description='Zen CLI', add_help=False)
         parent.add_argument('command_name', help='Name of the command you would like to run.')
@@ -33,6 +33,8 @@ class Kernel:
         except KeyError:
             print('Command "%s" not found, is it registered?' % (args.command_name))
             # raise e ?
+        except KeyboardInterrupt:
+            print('\nGoodbye!')
 
     # Load commands from framework and user app locations
     def load_commands(self, prefix='commands.'):

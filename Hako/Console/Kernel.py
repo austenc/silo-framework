@@ -10,16 +10,21 @@ class Kernel:
         self.app_path = os.path.dirname(app_path) + '/commands'
         self.framework_path = os.path.join(os.path.dirname(__file__), './Commands')
         self.commands = []
+        self.commands_loaded = False
     
     # Load all commands and attempt to match the user input to them
     def run(self):
-        self.commands = self.load_commands()
+        self.load_commands()
         parent = argparse.ArgumentParser(description='Zen CLI', add_help=False)
         parent.add_argument('command_name', help='Name of the command you would like to run.')
         args, unknown = parent.parse_known_args()
+        self.call(args.command_name)
 
+    # Call a command with the given arguments
+    def call(self, command, args=None):
         try:
-            cmd = self.commands[args.command_name]
+            cmd = self.commands[command]
+            cmd['instance']._kernel = self
             if cmd['params']:
                 cmd['instance']._params = cmd['params']
                 parser = argparse.ArgumentParser(prog=cmd['name'])
@@ -27,17 +32,14 @@ class Kernel:
                 for key, param in cmd['params'].items():
                     param.to_args(parser)
             
-                cmd_args, unknown_cmd_args = parser.parse_known_args()
+                cmd_args, unknown_cmd_args = parser.parse_known_args(args)
                 cmd['instance']._values = cmd_args
-                cmd['instance']._kernel = self
             cmd['instance'].handle()
-        except KeyError:
-            print('Command "%s" not found, is it registered?' % (args.command_name))
-            # raise e ?
+        except KeyError as e:
+            print('Command "%s" not found, is it registered?' % (command))
+            raise e 
         except KeyboardInterrupt:
             print('\nGoodbye!')
-
-    def call(self, command):
         # parse command string with argparse 
         #   - (may need to split or something beforehand)
         # Call the command with proper args / values / kernel just like handle() 
@@ -46,7 +48,9 @@ class Kernel:
     def load_commands(self, prefix='commands.'):
         from_framework = self.load_from_path(self.framework_path)
         from_app = self.load_from_path(self.app_path, prefix=prefix)
-        return {**from_framework, **from_app}
+        self.commands_loaded = True
+        self.commands = {**from_framework, **from_app}
+        return self.commands
 
     # Import all submodules from a given path and prefix
     def load_from_path(self, path, prefix='Hako.Console.Commands.'):

@@ -1,8 +1,7 @@
 from Hako.Console.Command import Command
 
 class RouteListCommand(Command):
-    def __init__(self):
-        self.signature = '''route:list 
+    signature = '''route:list 
             {arg1 : This is an example argument description!} 
             {--O|option1 : This option might do stuff}
         '''

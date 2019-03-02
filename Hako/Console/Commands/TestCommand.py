@@ -2,17 +2,16 @@
 from Hako.Console.Command import Command
 
 class TestCommand(Command):
-    def __init__(self):
-        self.signature = '''test'''
+    signature = '''test'''
 
     def handle(self):
         self.info('Running tests... ⌛')
         self.warn('WORK IN PROGRESS - load tests from app and run them')
 
         # Call another command
-        self.call('route:list')
+        self.call('route:list', {'arg1': 'test'})
 
-        # Something like this:
+        # Eventually... this command will run tests for the app, something like:
         # import unittest
         # import test.test_prog
         # suite = unittest.TestLoader().loadTestsFromModule(test.test_prog)

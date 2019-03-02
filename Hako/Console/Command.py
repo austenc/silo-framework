@@ -1,6 +1,12 @@
 import getpass
 from sty import fg, bg, rs
 
+# To Do
+# ----------------------------------------------------------------------------
+# - Improve tests / split into own files
+# - Write comments / docstrings
+# - Split loader stuff to its own class/tests?
+
 class Command:
     """Handles arguments and options of CLI commands.
 
@@ -17,9 +23,18 @@ class Command:
         self._values = {}
         self._kernel = None
     
-    def call(self, command):
-        if self._kernel is not None:
-            return self._kernel.call(command)
+    def call(self, command, args=None):
+        try:
+            if args is not None:
+                arg_list = []
+                for k, v in args.items():
+                    arg_list.append(k)
+                    arg_list.append(v)
+                args = arg_list
+
+            return self._kernel.call(command, args)
+        except Exception as e:
+            raise e
 
     def arguments(self):
         """Fetch user supplied values for this command's arguments.

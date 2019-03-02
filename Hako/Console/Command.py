@@ -27,9 +27,8 @@ class Command:
         try:
             if args is not None:
                 arg_list = []
-                for k, v in args.items():
-                    arg_list.append(k)
-                    arg_list.append(v)
+                for arg in args.items():
+                    arg_list.extend(arg)
                 args = arg_list
 
             return self._kernel.call(command, args)

@@ -29,12 +29,18 @@ class Kernel:
             
                 cmd_args, unknown_cmd_args = parser.parse_known_args()
                 cmd['instance']._values = cmd_args
+                cmd['instance']._kernel = self
             cmd['instance'].handle()
         except KeyError:
             print('Command "%s" not found, is it registered?' % (args.command_name))
             # raise e ?
         except KeyboardInterrupt:
             print('\nGoodbye!')
+
+    def call(self, command):
+        # parse command string with argparse 
+        #   - (may need to split or something beforehand)
+        # Call the command with proper args / values / kernel just like handle() 
 
     # Load commands from framework and user app locations
     def load_commands(self, prefix='commands.'):

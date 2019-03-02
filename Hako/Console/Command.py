@@ -15,6 +15,11 @@ class Command:
     def __init__(self):
         self._params = {}
         self._values = {}
+        self._kernel = None
+    
+    def call(self, command):
+        if self._kernel is not None:
+            return self._kernel.call(command)
 
     def arguments(self):
         """Fetch user supplied values for this command's arguments.

@@ -5,6 +5,7 @@ with open("README.md", "r") as fh:
 
 requirements = [
     'inflect>=2.1.0',
+    'sty>=1.0.0b9',
     'Werkzeug>=0.14.1'
 ]
 

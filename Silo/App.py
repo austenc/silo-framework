@@ -1,6 +1,6 @@
 import os
 from werkzeug.wsgi import SharedDataMiddleware
-from Hako.Routing import Router
+from Silo.Routing import Router
 
 class App:
     def __init__(self, routes, app_path):

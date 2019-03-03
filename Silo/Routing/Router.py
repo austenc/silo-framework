@@ -3,7 +3,7 @@ from werkzeug.exceptions import HTTPException, NotFound
 from werkzeug.wrappers import Request, Response
 from werkzeug.routing import Map
 from werkzeug.routing import Rule
-from Hako.Routing.Route import Resource
+from Silo.Routing.Route import Resource
 
 class Router:
     def __init__(self, routes):

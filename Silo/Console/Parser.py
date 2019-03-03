@@ -1,5 +1,5 @@
 import re
-from Hako.Console.Param import Param
+from Silo.Console.Param import Param
 
 
 class Parser:

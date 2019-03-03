@@ -1,6 +1,6 @@
 import unittest
 from werkzeug.routing import Rule
-from Hako.Routing import Route, Router
+from Silo.Routing import Route, Router
 
 
 class TestRouter(unittest.TestCase):

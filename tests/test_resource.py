@@ -1,5 +1,5 @@
 import unittest
-from Hako.Routing import Route
+from Silo.Routing import Route
 
 
 class TestResource(unittest.TestCase):

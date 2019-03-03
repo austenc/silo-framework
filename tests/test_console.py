@@ -1,8 +1,8 @@
 import os
 import unittest
-from Hako.Console.Command import Command
-from Hako.Console.Kernel import Kernel
-from Hako.Console.Parser import Parser
+from Silo.Console.Command import Command
+from Silo.Console.Kernel import Kernel
+from Silo.Console.Parser import Parser
 from argparse import Namespace
 
 

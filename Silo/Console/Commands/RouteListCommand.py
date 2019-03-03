@@ -1,4 +1,4 @@
-from Hako.Console.Command import Command
+from Silo.Console.Command import Command
 
 class RouteListCommand(Command):
     signature = '''route:list 

@@ -10,14 +10,14 @@ requirements = [
 ]
 
 setuptools.setup(
-    name="Hako",
+    name="Silo",
     version="0.0.1",
     author="Austen Cameron",
     author_email="austen.cameron@gmail.com",
     description="A simple python web framework",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/gohako/framework",
+    url="https://github.com/appsilo/framework",
     packages=setuptools.find_packages(),
     install_requires = requirements,
     test_require= requirements,

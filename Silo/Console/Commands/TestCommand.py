@@ -1,5 +1,5 @@
 
-from Hako.Console.Command import Command
+from Silo.Console.Command import Command
 
 class TestCommand(Command):
     signature = '''test'''

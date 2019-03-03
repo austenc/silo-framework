@@ -2,7 +2,7 @@ import argparse
 import importlib
 import pkgutil
 import os.path
-from Hako.Console.Parser import Parser
+from Silo.Console.Parser import Parser
 
 
 class Kernel:
@@ -53,7 +53,7 @@ class Kernel:
         return self.commands
 
     # Import all submodules from a given path and prefix
-    def load_from_path(self, path, prefix='Hako.Console.Commands.'):
+    def load_from_path(self, path, prefix='Silo.Console.Commands.'):
         loaded = {}
         packages = pkgutil.walk_packages([path], prefix)
         for finder, module_name, is_pkg in packages:
